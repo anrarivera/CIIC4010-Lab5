@@ -76,36 +76,38 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						if ((gridX == 0)) {
+						if ((gridX==0) && (gridY ==0)) {
+							//Do nothing
+						}
+						else if ((gridX == 0) && (gridY > 0)) {
 							//On the left column...
 							Color newColor = null;
-							Color myColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
+							Color myColor = myPanel.colorArray[myPanel.mouseDownGridX+1][myPanel.mouseDownGridY];
 							do{
-								switch (generator.nextInt(5)) {
-								case 0:
-									newColor = Color.YELLOW;
-									break;
-								case 1:
-									newColor = Color.MAGENTA;
-									break;
-								case 2:
-									newColor = Color.BLACK;
-									break;
-								case 3:
-									newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
-									break;
-								case 4:
-									newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
-									break;
+								for(int i = 0; i < 9; i++){
+									switch (generator.nextInt(5)) {
+									case 0:
+										newColor = Color.YELLOW;
+										break;
+									case 1:
+										newColor = Color.MAGENTA;
+										break;
+									case 2:
+										newColor = Color.BLACK;
+										break;
+									case 3:
+										newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
+										break;
+									case 4:
+										newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
+										break;
+									}
+									myPanel.colorArray[i+1][myPanel.mouseDownGridY] = newColor;
 								}
-								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 								myPanel.repaint();
-							}while(myColor.equals(newColor));										
+							}while(myColor.equals(newColor));	
+							
 						}
-
-						else if((gridY == 0)){
-							//On the top row... do nothing
-						}							
 
 						else {
 							//On the grid other than on the left column and on the top row:
