@@ -192,9 +192,9 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						if ((gridX1>0) && (gridY1 >0)) {
+						if ((gridX1>=0) && (gridY1 >=0)) {
 							Color newColor = null;
-							Color myColor = myPanel1.colorArray[myPanel1.mouseDownGridX+1][myPanel1.mouseDownGridY];
+							Color myColor = myPanel1.colorArray[myPanel1.mouseDownGridX][myPanel1.mouseDownGridY];
 							do{				
 							switch (generator.nextInt(2)) {
 							case 0:
