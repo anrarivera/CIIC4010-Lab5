@@ -13,7 +13,7 @@ public class MyPanel extends JPanel {
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
-	private static Array bombs [][] = new Array[TOTAL_COLUMNS][TOTAL_ROWS];
+	private static Boolean bombs [][] = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	private Random generator = new Random();
 	public int x = -1;
 	public int y = -1;
@@ -21,6 +21,26 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
+		//Making the bombs
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {
+			for (int y = 0; y < TOTAL_ROWS; y++) {
+				
+				int i = generator.nextInt(1);
+				int cl = generator.nextInt(TOTAL_COLUMNS);
+				int rw = generator.nextInt(TOTAL_ROWS);
+
+				if (compare(bombs[cl][rw],true) == true) {
+					//Do nothing
+				} else {	
+					switch (i){
+					case 0:
+						//Do nothing
+					case 1:
+						bombs[cl][rw] = true; //There is a bomb
+					}
+				}		 
+			}
+		}	
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
@@ -34,7 +54,11 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				colorArray[x][y] = Color.LIGHT_GRAY;
 			}
-		}
+		}		
+	}
+	private boolean compare(Boolean boolean1, boolean b) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -61,13 +85,6 @@ public class MyPanel extends JPanel {
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS )));
 		}
-
-		//Making the bombs
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {
-			for (int y = 0; y < TOTAL_ROWS; y++) {
-				bombs[generator.nextInt(TOTAL_COLUMNS)][generator.nextInt(TOTAL_ROWS)]  = bombs[x][y]; 
-			}
-		}
 		
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
@@ -80,6 +97,7 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
+
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
