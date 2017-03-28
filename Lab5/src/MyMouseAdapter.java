@@ -100,8 +100,8 @@ public class MyMouseAdapter extends MouseAdapter {
                     	boolean trufalse = myPanel.bombs[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
                     	
                     	if (trufalse) {
-                    		for (int col = 0; col < 8; col++) {   //Paints the rest of the mines
-                    			for (int row = 0; row < 8; row++) {
+                    		for (int col = 0; col < 8; col=col+1) {   //Paints the rest of the mines
+                    			for (int row = 0; row < 8; row=row+1) {
                     				if (myPanel.bombs[col][row]){
                     					myPanel.colorArray[col][row] = Color.RED;
                     				}
