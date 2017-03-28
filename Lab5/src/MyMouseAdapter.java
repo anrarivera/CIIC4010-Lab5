@@ -98,25 +98,26 @@ public class MyMouseAdapter extends MouseAdapter {
                     	Color newColor = null;
                     	boolean trufalse = myPanel.bombs[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
                     	
-                    	if (trufalse == true) {
+                    	if (trufalse) {
                     		newColor = Color.RED;
                     	} else {
                     		int count = 0;
                     		//Checks surrounding cells
                     		for (int i = -1; i<=1; i++) {
                     			for (int j = -1; j<=1; j++) {
-                    				if (((myPanel.mouseDownGridX+i) == -1) || ((myPanel.mouseDownGridY+j) == -1)){
-                    					break;
+                    				if (((myPanel.mouseDownGridX+i) < 0) || ((myPanel.mouseDownGridY+j) < 0)){
+                    					//Does Nothing
                     				}
-                            		else if (((myPanel.mouseDownGridX+i) >= (myPanel.getHeight())) || ((myPanel.mouseDownGridY+j) >= (myPanel.getHeight()))){
-                            			break;
+                            		else if (((myPanel.mouseDownGridX+i) > 8) || ((myPanel.mouseDownGridY+j) > 8)){
+                            			//Does Nothing
                             		} 
-                            		else if ((myPanel.bombs[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]) == true) {
+                            		else if ((myPanel.bombs[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j])) {
                             			count = count + 1; 
                             		}
                     			}
                     		}
                     		if (count == 0) {
+                    			
                     			newColor = Color.DARK_GRAY;
                     		} else {
                     			newColor = Color.WHITE;

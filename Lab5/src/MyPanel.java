@@ -21,21 +21,22 @@ public class MyPanel extends JPanel {
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		//Making the bombs
 		int c = 0;
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {
-			for (int y = 0; y < TOTAL_ROWS; y++) {
-				while (c<7) {			
-					int i = generator.nextInt(1);
-					int cl = generator.nextInt(TOTAL_COLUMNS);
-					int rw = generator.nextInt(TOTAL_ROWS);
-					switch (i){
-					case 0:
-						//Do nothing
-					case 1:
-						bombs[cl][rw] = true; // There is a bomb
-						c = c + 1;
-					}
+		while (c<7) {			
+			int i = generator.nextInt(1);
+			int cl = generator.nextInt(TOTAL_COLUMNS);
+			int rw = generator.nextInt(TOTAL_ROWS);
+			
+			if (bombs[cl][rw]) {
+				break;
+			} else {
+				switch (i){
+				case 0:
+					//Do nothing
+				case 1:
+					bombs[cl][rw] = true; // There is a bomb
+					c = c + 1;
 				}
-			}
+			}	
 		}	
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
