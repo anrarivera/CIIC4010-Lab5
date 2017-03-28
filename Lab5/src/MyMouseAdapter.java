@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
@@ -99,7 +100,16 @@ public class MyMouseAdapter extends MouseAdapter {
                     	boolean trufalse = myPanel.bombs[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
                     	
                     	if (trufalse) {
-                    		newColor = Color.RED;
+                    		for (int col = 0; col < 8; col++) {   //Paints the rest of the mines
+                    			for (int row = 0; row < 8; row++) {
+                    				if (myPanel.bombs[col][row]){
+                    					myPanel.colorArray[col][row] = Color.RED;
+                    				}
+                    			}
+                    		}
+                    		myPanel.repaint();
+                    		JOptionPane.showMessageDialog(null, "Sorry you stepped on a mine", "Game Over!", JOptionPane.PLAIN_MESSAGE);;
+                    		System.exit(0);
                     	} else {
                     		int count = 0;
                     		//Checks surrounding cells
@@ -117,7 +127,30 @@ public class MyMouseAdapter extends MouseAdapter {
                     			}
                     		}
                     		if (count == 0) {
-                    			
+//                    			int count2 = 0;
+//                    			while ((count2<9)) {
+//                    				for (int i = -1; i<=1; i++) {
+//                            			for (int j = -1; j<=1; j++) {
+//                            				count2 = count2 + 1;
+//                            				for (int w = -1; w<=1; w++) {
+//                                    			for (int z = -1; z<=1; z++) {
+//                                    				if (((myPanel.mouseDownGridX+i+w) < 0) || ((myPanel.mouseDownGridY+j+w) < 0)){
+//                                    					//Does Nothing
+//                                    				}
+//                                            		else if (((myPanel.mouseDownGridX+i+w) > 8) || ((myPanel.mouseDownGridY+j+w) > 8)){
+//                                            			//Does Nothing
+//                                            		} 
+//                                            		else if ((myPanel.bombs[myPanel.mouseDownGridX+i+w][myPanel.mouseDownGridY+j+w])) {
+//                                            			newColor = Color.WHITE;
+//                                            			myPanel.colorArray[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] = newColor; break;
+//                                            		}		
+//                                    			}
+//                            				}
+//                            				newColor = Color.DARK_GRAY;
+//                                            myPanel.colorArray[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] = newColor;
+//                            			}
+//                            		}
+//                    			}
                     			newColor = Color.DARK_GRAY;
                     		} else {
                     			newColor = Color.WHITE;
@@ -169,7 +202,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							do{				
 							switch (generator.nextInt(2)) {
 							case 0:
-								newColor = Color.RED;
+								newColor = Color.CYAN;
 								break;
 							case 1:
 								newColor = Color.LIGHT_GRAY;
