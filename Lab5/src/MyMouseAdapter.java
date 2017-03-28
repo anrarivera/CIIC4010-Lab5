@@ -96,37 +96,34 @@ public class MyMouseAdapter extends MouseAdapter {
                     } else {
                         //Released the mouse button on the same cell where it was pressed
                     	Color newColor = null;
-                    	boolean tf = myPanel.bombs[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
+                    	boolean trufalse = myPanel.bombs[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
                     	
-                    	if (tf == true) {
+                    	if (trufalse == true) {
                     		newColor = Color.RED;
                     	} else {
-                    		newColor = Color.BLACK;
+                    		int count = 0;
+                    		//Checks surrounding cells
+                    		for (int i = -1; i<=1; i++) {
+                    			for (int j = -1; j<=1; j++) {
+                    				if (((myPanel.mouseDownGridX+i) == -1) || ((myPanel.mouseDownGridY+j) == -1)){
+                    					break;
+                    				}
+                            		else if (((myPanel.mouseDownGridX+i) >= (myPanel.getHeight())) || ((myPanel.mouseDownGridY+j) >= (myPanel.getHeight()))){
+                            			break;
+                            		} 
+                            		else if ((myPanel.bombs[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j]) == true) {
+                            			count = count + 1; 
+                            		}
+                    			}
+                    		}
+                    		if (count == 0) {
+                    			newColor = Color.DARK_GRAY;
+                    		} else {
+                    			newColor = Color.WHITE;
+                    		}	
                     	}
-//                        Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
-//                       
-//                        int i = generator.nextInt(5);
-//                       
-//                        switch (i) {
-//                        case 0:
-//                            newColor = Color.YELLOW;
-//                            break;
-//                        case 1:
-//                            newColor = Color.MAGENTA;
-//                            break;
-//                        case 2:
-//                            newColor = Color.BLACK;
-//                            break;
-//                        case 3:
-//                            newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
-//                            break;
-//                        case 4:
-//                            newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
-//                            break;
-//                        }
                         myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-                        myPanel.repaint();
-                            
+                        myPanel.repaint();      
                     }
 				}
 			}
@@ -191,5 +188,4 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		}
 	}
-
 }

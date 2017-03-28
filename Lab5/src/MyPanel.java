@@ -1,10 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Random;
-
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
@@ -14,7 +11,7 @@ public class MyPanel extends JPanel {
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
-	public static boolean bombs [][] = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
+	public boolean bombs[][] = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	private Random generator = new Random();
 	public int x = -1;
 	public int y = -1;
@@ -26,17 +23,10 @@ public class MyPanel extends JPanel {
 		int c = 0;
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-				
-				
-				
-//				boolean b = bombs[cl][rw];
-
-				while (c<5) {
-				
+				while (c<7) {			
 					int i = generator.nextInt(1);
 					int cl = generator.nextInt(TOTAL_COLUMNS);
 					int rw = generator.nextInt(TOTAL_ROWS);
-				
 					switch (i){
 					case 0:
 						//Do nothing
@@ -45,7 +35,6 @@ public class MyPanel extends JPanel {
 						c = c + 1;
 					}
 				}
-						 
 			}
 		}	
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -63,7 +52,7 @@ public class MyPanel extends JPanel {
 			}
 		}		
 	}
-
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -101,7 +90,7 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-
+	
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
