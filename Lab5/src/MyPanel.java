@@ -36,7 +36,7 @@ public class MyPanel extends JPanel {
 					case 0:
 						//Do nothing
 					case 1:
-						bombs[cl][rw] = true; //There is a bomb
+						bombs[cl][rw] = true; // There is a bomb
 					}
 				}		 
 			}

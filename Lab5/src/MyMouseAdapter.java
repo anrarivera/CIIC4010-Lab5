@@ -98,48 +98,7 @@ public class MyMouseAdapter extends MouseAdapter {
                     	Color newColor = null;
                         Color oldColor = myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
                        
-                        int i = generator.nextInt(5);
                        
-                        switch (i) {
-                        case 0:
-                            newColor = Color.YELLOW;
-                            break;
-                        case 1:
-                            newColor = Color.MAGENTA;
-                            break;
-                        case 2:
-                            newColor = Color.BLACK;
-                            break;
-                        case 3:
-                            newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
-                            break;
-                        case 4:
-                            newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
-                            break;
-                        }
-                       
-                        while (newColor.equals(oldColor)) {
-                           
-                            i = generator.nextInt(5);
-                           
-                            switch (i) {
-                            case 0:
-                                newColor = Color.YELLOW;
-                                break;
-                            case 1:
-                                newColor = Color.MAGENTA;
-                                break;
-                            case 2:
-                                newColor = Color.BLACK;
-                                break;
-                            case 3:
-                                newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
-                                break;
-                            case 4:
-                                newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
-                                break;
-                            }
-                        }
                         myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
                         myPanel.repaint();
                             
