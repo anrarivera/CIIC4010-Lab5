@@ -12,6 +12,7 @@ public class MyPanel extends JPanel {
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
 	public boolean bombs[][] = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
+	public int abombs[][] = new int [TOTAL_COLUMNS][TOTAL_COLUMNS];
 	private Random generator = new Random();
 	public int x = -1;
 	public int y = -1;
@@ -35,6 +36,23 @@ public class MyPanel extends JPanel {
 				case 1:
 					bombs[cl][rw] = true; // There is a bomb
 					c = c + 1;
+					abombs[cl][rw] = 2;
+					for (int w = -1; w<=1; w++) {
+            			for (int z = -1; z<=1; z++) {
+            				if (((cl+w) < 0) || ((rw+z) < 0)){
+            					//Does Nothing
+            				}
+                    		else if (((cl+w) > 8) || ((rw+z) > 8)){
+                    			//Does Nothing
+                    		} 
+                    		else if ((bombs[cl+w][rw+z])) {
+                    			//Does Nothing 
+                    		}
+                    		else {
+                    			abombs[cl+w][rw+z] = 1;
+                    		}
+            			}
+            		}
 				}
 			}	
 		}	

@@ -10,6 +10,54 @@ import javax.swing.JOptionPane;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	
+	public void bombspaces(MyPanel myPanel, int x, int y) {
+		int count = 0;
+		Color cellColor = null;
+		//Checks surrounding cells
+		for (int i = -1; i<=1; i++) {
+			for (int j = -1; j<=1; j++) {
+				if (((y+i) < 0) || ((x+j) < 0)){
+					//Does Nothing
+				}
+        		else if (((x+i) > 8) || ((y+j) > 8)){
+        			//Does Nothing
+        		} 
+        		else if ((myPanel.bombs[x+i][y+j])) {
+        			count = count + 1; 
+        		}
+			}
+		}
+		if (count == 0) {
+			cellColor = Color.DARK_GRAY;
+			myPanel.colorArray[x][y] = cellColor;
+			for (int w = -1; w<=1; w++) {
+				for (int z = -1; z<=1; z++) {
+					if (((x+w) < 0) || ((y+z) < 0)){
+						//Does Nothing
+					}
+	        		else if (((x+w) > 8) || ((y+z) > 8)){
+	        			//Does Nothing
+	        		}
+	        		else if ((myPanel.bombs[x+w][y+z])) {
+	        			cellColor = Color.WHITE;
+	        			myPanel.colorArray[x+w][y+z] = cellColor;
+	        		}
+	        		else if ((!myPanel.bombs[x+w][y+z])) {
+	        			cellColor = Color.DARK_GRAY;
+	        			myPanel.colorArray[x+w][y+z] = cellColor;
+	        			bombspaces(myPanel, x+w, y+z);
+	        		}
+				}
+			}
+			myPanel.repaint(); 
+		} else {
+			cellColor = Color.WHITE;
+			myPanel.colorArray[x][y] = cellColor;
+		}	
+		myPanel.repaint(); 
+	}
+
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -96,7 +144,6 @@ public class MyMouseAdapter extends MouseAdapter {
                         //Do nothing
                     } else {
                         //Released the mouse button on the same cell where it was pressed
-                    	Color newColor = null;
                     	boolean trufalse = myPanel.bombs[myPanel.mouseDownGridX][myPanel.mouseDownGridY];
                     	
                     	if (trufalse) {
@@ -110,62 +157,7 @@ public class MyMouseAdapter extends MouseAdapter {
                     		myPanel.repaint();
                     		JOptionPane.showMessageDialog(null, "Sorry you stepped on a mine", "Game Over!", JOptionPane.PLAIN_MESSAGE);;
                     		System.exit(0);
-                    	} else {
-                    		int count = 0;
-                    		//Checks surrounding cells
-                    		for (int i = -1; i<=1; i++) {
-                    			for (int j = -1; j<=1; j++) {
-                    				if (((myPanel.mouseDownGridX+i) < 0) || ((myPanel.mouseDownGridY+j) < 0)){
-                    					//Does Nothing
-                    				}
-                            		else if (((myPanel.mouseDownGridX+i) > 8) || ((myPanel.mouseDownGridY+j) > 8)){
-                            			//Does Nothing
-                            		} 
-                            		else if ((myPanel.bombs[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j])) {
-                            			count = count + 1; 
-                            		}
-                    			}
-                    		}
-                    		if (count == 0) {
-//                    			int count2 = 0;
-//                    			while ((count2<9)) {
-//                    				for (int i = -1; i<=1; i++) {
-//                            			for (int j = -1; j<=1; j++) {
-//                            				count2 = count2 + 1;
-//                            				if (((myPanel.mouseDownGridX+i) < 0) || ((myPanel.mouseDownGridY+j) < 0)){
-//                            					//Does Nothing
-//                            				}
-//                                    		else if (((myPanel.mouseDownGridX+i) > 8) || ((myPanel.mouseDownGridY+j) > 8)){
-//                                    			//Does Nothing
-//                                    		} else {
-//                                    			for (int w = -1; w<=1; w++) {
-//                                    				for (int z = -1; z<=1; z++) {
-//                                    					if (((myPanel.mouseDownGridX+i+w) < 0) || ((myPanel.mouseDownGridY+j+z) < 0)){
-//                                    						//Does Nothing
-//                                    					}
-//                                    					else if (((myPanel.mouseDownGridX+i+w) > 8) || ((myPanel.mouseDownGridY+j+z) > 8)){
-//                                    						//Does Nothing
-//                                    					} 
-//                                    					else if ((myPanel.bombs[myPanel.mouseDownGridX+i+w][myPanel.mouseDownGridY+j+z])) {
-//                                    						newColor = Color.WHITE;
-//                                    						myPanel.colorArray[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] = newColor; break;
-//                                    					}		
-//                                    				}
-//                                    			}
-//                                    		}
-//                            				
-//                            				newColor = Color.DARK_GRAY;
-//                                            myPanel.colorArray[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] = newColor;
-//                            			}
-//                            		}
-//                    			}
-                    			newColor = Color.DARK_GRAY;
-                    		} else {
-                    			newColor = Color.WHITE;
-                    		}	
-                    	}
-                        myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-                        myPanel.repaint();      
+                    	} 
                     }
 				}
 			}
