@@ -103,7 +103,7 @@ public class MyMouseAdapter extends MouseAdapter {
                     		for (int col = 0; col < 9; col++) {   //Paints the rest of the mines
                     			for (int row = 0; row < 9; row++) {
                     				if (myPanel.bombs[col][row]){
-                    					myPanel.colorArray[col][row] = Color.RED;
+                    					myPanel.colorArray[col][row] = Color.BLACK;
                     				}
                     			}
                     		}
@@ -127,38 +127,6 @@ public class MyMouseAdapter extends MouseAdapter {
                     			}
                     		}
                     		if (count == 0) {
-//                    			int count2 = 0;
-//                    			while ((count2<9)) {
-//                    				for (int i = -1; i<=1; i++) {
-//                            			for (int j = -1; j<=1; j++) {
-//                            				count2 = count2 + 1;
-//                            				if (((myPanel.mouseDownGridX+i) < 0) || ((myPanel.mouseDownGridY+j) < 0)){
-//                            					//Does Nothing
-//                            				}
-//                                    		else if (((myPanel.mouseDownGridX+i) > 8) || ((myPanel.mouseDownGridY+j) > 8)){
-//                                    			//Does Nothing
-//                                    		} else {
-//                                    			for (int w = -1; w<=1; w++) {
-//                                    				for (int z = -1; z<=1; z++) {
-//                                    					if (((myPanel.mouseDownGridX+i+w) < 0) || ((myPanel.mouseDownGridY+j+z) < 0)){
-//                                    						//Does Nothing
-//                                    					}
-//                                    					else if (((myPanel.mouseDownGridX+i+w) > 8) || ((myPanel.mouseDownGridY+j+z) > 8)){
-//                                    						//Does Nothing
-//                                    					} 
-//                                    					else if ((myPanel.bombs[myPanel.mouseDownGridX+i+w][myPanel.mouseDownGridY+j+z])) {
-//                                    						newColor = Color.WHITE;
-//                                    						myPanel.colorArray[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] = newColor; break;
-//                                    					}		
-//                                    				}
-//                                    			}
-//                                    		}
-//                            				
-//                            				newColor = Color.DARK_GRAY;
-//                                            myPanel.colorArray[myPanel.mouseDownGridX+i][myPanel.mouseDownGridY+j] = newColor;
-//                            			}
-//                            		}
-//                    			}
                     			newColor = Color.DARK_GRAY;
                     		} else {
                     			newColor = Color.WHITE;
@@ -210,7 +178,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							do{				
 							switch (generator.nextInt(2)) {
 							case 0:
-								newColor = Color.CYAN;
+								newColor = Color.RED;
 								break;
 							case 1:
 								newColor = Color.LIGHT_GRAY;
