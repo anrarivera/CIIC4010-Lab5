@@ -17,45 +17,27 @@ public class MyMouseAdapter extends MouseAdapter {
 		//Checks surrounding cells
 		for (int i = -1; i<=1; i++) {
 			for (int j = -1; j<=1; j++) {
-				if (((y+i) < 0) || ((x+j) < 0)){
-					//Does Nothing
-				}
-        		else if (((x+i) > 8) || ((y+j) > 8)){
-        			//Does Nothing
-        		} 
-        		else if ((myPanel.bombs[x+i][y+j])) {
+				if (((y+j) >= 0 && (x+i) >= 0 && (x+i) <= 8 && (y+j) <= 8 && myPanel.bombs[x+i][y+j])) {
         			count = count + 1; 
         		}
 			}
 		}
-		if (count == 0) {
-			cellColor = Color.DARK_GRAY;
-			myPanel.colorArray[x][y] = cellColor;
-			for (int w = -1; w<=1; w++) {
-				for (int z = -1; z<=1; z++) {
-					if (((x+w) < 0) || ((y+z) < 0)){
-						//Does Nothing
-					}
-	        		else if (((x+w) > 8) || ((y+z) > 8)){
-	        			//Does Nothing
-	        		}
-	        		else if ((myPanel.bombs[x+w][y+z])) {
-	        			cellColor = Color.WHITE;
-	        			myPanel.colorArray[x+w][y+z] = cellColor;
-	        		}
-	        		else if ((!myPanel.bombs[x+w][y+z])) {
-	        			cellColor = Color.DARK_GRAY;
-	        			myPanel.colorArray[x+w][y+z] = cellColor;
-	        			bombspaces(myPanel, x+w, y+z);
-	        		}
-				}
-			}
-			myPanel.repaint(); 
-		} else {
+		if (count > 0) {
 			cellColor = Color.WHITE;
 			myPanel.colorArray[x][y] = cellColor;
-		}	
-		myPanel.repaint(); 
+			myPanel.numCloseBombs[x][y] = count;
+		}	 
+		else {
+			for (int s = -1; s<=1; s++) {
+				for (int t = -1; t<=1; t++) {
+					if (((y+t) >= 0 && (x+s) >= 0 && (x+s) <= 8 && (y+t) <= 8 && !myPanel.colorArray[x+s][y+t].equals(Color.DARK_GRAY) && !myPanel.colorArray[x+s][y+t].equals(Color.RED)&& (!myPanel.bombs[x+s][y+t]))){
+						cellColor = Color.DARK_GRAY;
+						myPanel.colorArray[x+s][y+t] = cellColor;
+						bombspaces(myPanel, x+s, y+t);
+					}
+				}
+			} 
+		} 
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -150,14 +132,36 @@ public class MyMouseAdapter extends MouseAdapter {
                     		for (int col = 0; col < 9; col++) {   //Paints the rest of the mines
                     			for (int row = 0; row < 9; row++) {
                     				if (myPanel.bombs[col][row]){
-                    					myPanel.colorArray[col][row] = Color.RED;
+                    					myPanel.colorArray[col][row] = Color.BLACK;
                     				}
                     			}
                     		}
                     		myPanel.repaint();
                     		JOptionPane.showMessageDialog(null, "Sorry you stepped on a mine", "Game Over!", JOptionPane.PLAIN_MESSAGE);;
                     		System.exit(0);
-                    	} 
+                    	}
+                    	Color newColor = Color.DARK_GRAY;
+                    	myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+                    	bombspaces(myPanel, myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+                    	myPanel.repaint();
+                    	
+//                    	int counter2 = 0;
+//                    	for (int col = 0; col < 9; col++) {
+//                			for (int row = 0; row < 9; row++) {
+//                				if (myPanel.colorArray[col][row].equals(Color.LIGHT_GRAY)){
+//                					counter2 = counter2 + 1;
+//                					int counter = 81;
+//                					counter = counter - counter2;
+//                					if (counter == 74 ){
+//                						JOptionPane.showMessageDialog(null, "You Finished the Game", "Congratulations!", JOptionPane.PLAIN_MESSAGE);;
+//                                		System.exit(0);
+//                					}
+//                					
+//                					
+//                					
+//                				}
+//                			}
+//                		}
                     }
 				}
 			}
@@ -202,7 +206,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							do{				
 							switch (generator.nextInt(2)) {
 							case 0:
-								newColor = Color.CYAN;
+								newColor = Color.RED;
 								break;
 							case 1:
 								newColor = Color.LIGHT_GRAY;

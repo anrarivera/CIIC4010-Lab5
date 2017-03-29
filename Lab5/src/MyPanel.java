@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.util.Random;
@@ -13,6 +14,7 @@ public class MyPanel extends JPanel {
 	private static final int TOTAL_ROWS = 9;
 	public boolean bombs[][] = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int abombs[][] = new int [TOTAL_COLUMNS][TOTAL_COLUMNS];
+	public int numCloseBombs[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	private Random generator = new Random();
 	public int x = -1;
 	public int y = -1;
@@ -105,6 +107,10 @@ public class MyPanel extends JPanel {
 					Color c = colorArray[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
+					Color orange =  Color.ORANGE;
+					g.setColor(orange);
+					g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+					g.drawString(String.valueOf(numCloseBombs[x][y]), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 20);
 				}
 			}
 		}
